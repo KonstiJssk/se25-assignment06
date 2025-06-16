@@ -27,6 +27,30 @@ public class TestFixtures {
 
     private static final List<Review> REVIEW_LIST = List.of(
             // TODO: create suitable review test fixtures
+            Review.builder()
+                    .id(1L)
+                    .createdAt(DATE_TIME)
+                    .pos(POS_LIST.get(0))          // CrazySheep
+                    .author(USER_LIST.get(0))      // Jane Doe
+                    .review("Gemütlicher Ort mit gutem Kaffee.")
+                    .approvalCount(2)              // approved
+                    .build(),
+            Review.builder()
+                    .id(2L)
+                    .createdAt(DATE_TIME)
+                    .pos(POS_LIST.get(1))          // Mensa
+                    .author(USER_LIST.get(1))      // Max Mustermann
+                    .review("Ganz ok, aber lange Warteschlangen.")
+                    .approvalCount(1)              // not approved
+                    .build(),
+            Review.builder()
+                    .id(3L)
+                    .createdAt(DATE_TIME)
+                    .pos(POS_LIST.get(2))          // Lidl Automat
+                    .author(USER_LIST.get(2))      // Student Example
+                    .review("Perfekt für einen schnellen Snack.")
+                    .approvalCount(0)              // not approved
+                    .build()
     );
 
     public static List<User> getUserList() {
@@ -75,6 +99,33 @@ public class TestFixtures {
         List<Pos> posList = posService.getAll();
         List<User> userList = userService.getAll();
         // TODO: create suitable review test fixtures (linking them to the POS and user test fixtures)
+
+        Review review1 = Review.builder()
+                .pos(posList.get(0))
+                .author(userList.get(0))
+                .review("Guter Kaffee und nettes Personal.")
+                .approvalCount(2)
+                .build();
+
+        Review review2 = Review.builder()
+                .pos(posList.get(1))
+                .author(userList.get(1))
+                .review("Lange Schlangen, aber gut.")
+                .approvalCount(1)
+                .build();
+
+        Review review3 = Review.builder()
+                .pos(posList.get(2))
+                .author(userList.get(2))
+                .review("Schnell, aber oft leer.")
+                .approvalCount(0)
+                .build();
+
+        reviewService.create(review1);
+        reviewService.create(review2);
+        reviewService.create(review3);
+
+
         return reviewService.getAll();
     }
 }
